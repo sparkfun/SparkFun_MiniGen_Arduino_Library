@@ -77,6 +77,10 @@ void MiniGen::setMode(MODE newMode)
       configReg |=0x0000;
     break;
   }
+  
+  // Make sure to clear the top two bit to make sure we're writing the config register:
+  configReg &= ~0xC000;
+  
   SPIWrite(configReg); // Now write our shadow copy to the part.
 }
 
@@ -90,6 +94,10 @@ void MiniGen::selectFreqReg(FREQREG reg)
   if (reg == FREQ0) configReg &= ~0x0800;
   // Otherwise, set bit 11.
   else              configReg |= 0x0800;
+  
+  // Make sure to clear the top two bit to make sure we're writing the config register:
+  configReg &= ~0xC000;
+  
   SPIWrite(configReg);
 }
 
@@ -99,6 +107,10 @@ void MiniGen::selectPhaseReg(PHASEREG reg)
 {
   if (reg == PHASE0) configReg &= ~0x0400;
   else               configReg |= 0x0400;
+  
+  // Make sure to clear the top two bit to make sure we're writing the config register:
+  configReg &= ~0xC000;
+  
   SPIWrite(configReg);
 }
 
@@ -128,6 +140,10 @@ void MiniGen::setFreqAdjustMode(FREQADJUSTMODE newMode)
       configReg |= 0x2000;
     break;
   }
+  
+  // Make sure to clear the top two bit to make sure we're writing the config register:
+  configReg &= ~0xC000;
+  
   SPIWrite(configReg);
 }
 
