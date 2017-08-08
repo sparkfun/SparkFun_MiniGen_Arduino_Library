@@ -11,6 +11,7 @@ us at the local.
 2 Jan 2014- Mike Hord, SparkFun Electronics
 
 Code developed in Arduino 1.0.5, on an Arduino Pro Mini 5V.
+Tested and working on Teensy 3.2 and ATMEGA328.
 
 **Updated to Arduino 1.6.4 5/2015**
 
@@ -24,12 +25,18 @@ Code developed in Arduino 1.0.5, on an Arduino Pro Mini 5V.
 //  code to fit the new target.
 void MiniGen::configSPIPeripheral()
 {
-  SPI.setDataMode(SPI_MODE2);  // Clock idle high, data capture on falling edge
-  pinMode(_FSYNCPin, OUTPUT);  // Make the FSYCPin an output; this is analogous
-                               //  to chip select in most systems.
+  pinMode(_FSYNCPin, OUTPUT);    // Make the FSYCPin an output; this is analogous
+                                 //  to chip select in most systems.
   pinMode(10, OUTPUT);
   digitalWrite(_FSYNCPin, HIGH);
-  SPI.begin();
+ 
+  if (SPI_HAS_TRANSACTION) {     // needed for Teensy and Teensy-like uCs
+    SPI.begin();
+    SPI.beginTransaction(SPISettings(20000000,MSBFIRST,SPI_MODE2));
+  } else {
+    SPI.setDataMode(SPI_MODE2);  // Clock idle high, data capture on falling edge
+    SPI.begin();
+  }
 }
 
 // SPIWrite is optimized for this part. All writes are 16-bits; some registers
