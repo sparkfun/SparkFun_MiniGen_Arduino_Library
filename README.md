@@ -1,5 +1,6 @@
 SparkFun MiniGen Arduino Library
 ========================================
+[![Compile Examples](https://github.com/sparkfun/SparkFun_MiniGen_Arduino_Library/workflows/Compile%20Examples/badge.svg)](https://github.com/sparkfun/SparkFun_MiniGen_Arduino_Library/actions?workflow=Compile+Examples)
 
 ![SparkFun MiniGen](https://cdn.sparkfun.com//assets/parts/7/2/2/3/11420-01.jpg)
 
